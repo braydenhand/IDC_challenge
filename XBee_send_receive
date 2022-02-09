@@ -1,0 +1,23 @@
+#include <Servo.h>
+
+Servo servoLeft;
+Servo servoRight;
+//servo left moves forward as values get bigger
+//servo right moves forward as values get smaller
+
+//delay 1100 will turn 90 degrees
+
+void setup() {
+  // put your setup code here, to run once:
+  servoRight.attach(11);
+  servoLeft.attach(12);
+  servoLeft.writeMicroseconds(1500);
+  servoRight.writeMicroseconds(1700);
+  delay(1100);
+  servoRight.writeMicroseconds(1500);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
