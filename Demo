@@ -1,0 +1,31 @@
+#define Rx 17 //DOUT to pin 17
+#define Tx 16 //DOUT to pin 16
+
+void setup() {
+  Serial.begin(9600); //Set to No line ending;
+  Serial2.begin(9600); //type a char, then hit enter
+  pinMode(7, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  delay(500);
+}
+
+void loop() {
+  digitalWrite(3,LOW);
+  digitalWrite(4,LOW);
+  if(digitalRead(7) == HIGH) {
+    char outgoing = '3';
+    Serial2.print(outgoing);
+  }
+  if(Serial.available()) {           // Is serial data available?
+    char outgoing = Serial.read(); //Read character, send to XBee
+    Serial2.print(outgoing);
+    digitalWrite(4, HIGH); 
+  }
+  if(Serial2.available()) {   //Is XBee available?
+    digitalWrite(3, HIGH);
+    char incoming = Serial2.read(); //Read character
+    Serial.println(incoming); //Send to serial monitor
+  }
+  delay(1000);
+}
