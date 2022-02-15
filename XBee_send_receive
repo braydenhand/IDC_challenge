@@ -1,23 +1,31 @@
-#include <Servo.h>
-
-Servo servoLeft;
-Servo servoRight;
-//servo left moves forward as values get bigger
-//servo right moves forward as values get smaller
-
-//delay 1100 will turn 90 degrees
+#define Rx 17 //DOUT to pin 17
+#define Tx 16 //DOUT to pin 16
 
 void setup() {
-  // put your setup code here, to run once:
-  servoRight.attach(11);
-  servoLeft.attach(12);
-  servoLeft.writeMicroseconds(1500);
-  servoRight.writeMicroseconds(1700);
-  delay(1100);
-  servoRight.writeMicroseconds(1500);
+  Serial.begin(9600); //Set to No line ending;
+  Serial2.begin(9600); //type a char, then hit enter
+  pinMode(7, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  delay(500);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  digitalWrite(3,LOW);             //Receive LED OFF
+  digitalWrite(4,LOW);             //Send LED OFF
+  if(digitalRead(7) == HIGH) {     //If button is pressed, send a 3 and turn on Send LED
+    char outgoing = '3';
+    Serial2.print(outgoing);
+    digitalWrite(4, HIGH); 
+  }
+  if(Serial.available()) {           // Is serial data available?
+    char outgoing = Serial.read(); //Read character, send to XBee
+    Serial2.print(outgoing);
+  }
+  if(Serial2.available()) {   //Is XBee available?
+    digitalWrite(3, HIGH);     //Turn on Receive LED
+    char incoming = Serial2.read(); //Read character
+    Serial.println(incoming); //Send to serial monitor
+  }
+  delay(1000);
 }
