@@ -8,16 +8,14 @@ Servo servoRight;
 //delay 1100 will turn 90 degrees
 
 void setup() {
-  // put your setup code here, to run once:
-  servoRight.attach(11);
-  servoLeft.attach(12);
-  servoLeft.writeMicroseconds(1500);
-  servoRight.writeMicroseconds(1700);
-  delay(1100);
-  servoRight.writeMicroseconds(1500);
+  servoRight.attach(11);                //connects the right servo to pin 11
+  servoLeft.attach(12);                 //connects the left servo to pin 12
+  servoLeft.writeMicroseconds(1500);    //sets left servo to still
+  servoRight.writeMicroseconds(1700);   //sets right servo to move backwards
+  delay(1100);                          //delay 1100 ms
+  servoRight.writeMicroseconds(1500);   //right servo movement stops
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
 }
